@@ -1,0 +1,58 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div layout="column">
+        <md-input-container class="no-padding">
+            <label>Template name</label>
+            <input type="text" ng-model="currentTemplate.name" class="no-margin">
+        </md-input-container>
+    </div>
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-disabled="currentTemplate.name == ''"
+               ng-click="Save(currentTemplate)">{{'sys.button.save' | translate}}</md-button>
+</div>
+<div layout="column" ng-style="{'height': heightScreen - 112 + 'px', 'overflow': 'hidden'}"
+        style="background-color: inherit;">
+    <div>
+        <form action="#" class="row" style="line-height: 35px; margin: 10px 0px;">
+            <div class="col s2 m2 l2" ng-repeat="mainColor in mainColors"
+                 ng-click="InitTemplate(mainColor.value); SetColorForComponent(mainColor.value);">
+                <input name="group" type="radio" id="{{mainColor.value}}" ng-checked="currentTemplate.mainColor == mainColor.value" />
+                <label for="{{mainColor.value}}">
+                    <h6 class="black-text color-template-label" ng-class="mainColor.value">{{mainColor.name}}</h6>
+                </label>
+            </div>
+        </form>
+        <table ng-show="currentTemplate.mainColor !== ''">
+            <thead style="display: block;">
+            <tr layout="row">
+                <th flex="15">Components</th>
+                <th flex="70">Hues</th>
+                <th flex="15">Custom main color</th>
+            </tr>
+            </thead>
+            <tbody style="display: block; overflow-y: auto; overflow-x: hidden;"
+                   ng-style="{'height': heightScreen - 288 + 'px'}">
+            <tr ng-repeat="component in components" layout="row">
+                <td flex="15">{{component.name}}</td>
+                <td style="height: 50px; padding: 0;" flex="70">
+                    <label class="button" ng-class="color" style="border-radius: 0; height: 50px; width: 50px; padding: 0.8em;"
+                           ng-repeat="color in colorPalettes[component.color]"
+                           ng-click="template.components[component.id] = color">
+                        <i class="material-icons" ng-show="template.components[component.id] == color">done</i>
+                    </label>
+                </td>
+                <td flex="15" style="padding: 0;">
+                    <md-input-container style="padding: 0;">
+                        <label>&nbsp;</label>
+                        <md-select ng-model="component.color" aria-label="Choose color">
+                            <md-option value="" ng-selected="component.color == '' ? 'selected' : ''">Choose color</md-option>
+                            <md-option ng-class="mainColor.value" ng-selected="component.color == mainColor.value ? 'selected' : ''"
+                                       ng-repeat="mainColor in mainColors" value="{{mainColor.value}}">{{mainColor.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

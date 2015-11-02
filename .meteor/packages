@@ -1,0 +1,60 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+# Meteor base packages
+standard-minifiers
+meteor-base
+mobile-experience
+angular
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+babrahams:editable-json
+ecmascript
+crosswalk
+
+# User packages
+accounts-ui
+accounts-password
+angularui:angular-ui-router
+momentjs:moment
+ncuillery:angular-breadcrumb
+alanning:roles
+s2corp:angular-ui-tree
+juliancwirko:s-alert-jelly
+angular:angular-material
+fortawesome:fontawesome
+oaf:html5-desktop-notifications
+planettraining:angular-translate
+s2corp:angular-google-maps
+cfs:standard-packages
+cfs:filesystem
+cfs:ejson-file
+cfs:gridfs
+danialfarid:ng-file-upload
+angularui:ui-select
+angular:angular-sanitize
+s2corp:angular-ui-grid
+stevezhu:lodash
+nmccready:angular-simple-logger
+s2corp:angular-hotkeys
+mizzao:user-status
+steeve:jquery-barcode
+s2corp:angular-fontselect
+nimble:restivus
+s2corp:highcharts.com
+s2corp:bootstrap-daterangepicker
+s2corp:ng-responsive-calendar
+netanelgilad:excel
+s2corp:angular-drag-and-drop-lists

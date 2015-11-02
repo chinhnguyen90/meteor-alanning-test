@@ -1,0 +1,129 @@
+<style>
+    .input-field{
+        margin:0 auto;
+    }
+    .input-field input{
+        margin-bottom:5px;
+    }
+    .input-field .prefix{
+        top:12px;
+    }
+</style>
+<div class="row">
+    <div class="col s12 card-toolbar" ng-class="template.components.toolbarView" style="padding-top: 8px;">
+        <div layout="row" class="layoutMain">
+            <md-input-container md-no-float flex="20" style="padding-bottom:0; margin-left:10px;margin-top:10px;">
+              <md-icon class="material-icons">label</md-icon>
+              <input placeholder="Display Name" id="first_name" type="text" class="validate" ng-model="newGroup.displayName">
+            </md-input-container>
+            <md-input-container md-no-float flex="20" style="padding-bottom:0;margin-top:10px;">
+              <md-icon class="material-icons">info</md-icon>
+              <input placeholder="Name" id="last_name" type="text" class="validate" ng-model="newGroup.name"
+                       ng-minlength='5' ng-pattern='/^[a-zA-Z0-9_]+$/'>
+            </md-input-container>
+            <div flex></div>
+
+            <md-button class="md-raised md-primary" ng-disabled="!newGroup.name"  ng-click="CreateGroup(newGroup)"
+                       style="line-height: 36px; height: 36px;">Create</md-button>
+            <md-button class="md-raised md-warn" ng-disabled="!newGroup.name" ng-click="newGroup={}"
+                       style="line-height: 36px; height: 36px;">Cancel</md-button>
+        </div>
+    </div>
+</div>
+<div class="row layoutMain">
+    <div class="col s12">
+        <script type="text/ng-template" id="nodes_renderer.html">
+            <div class="group-title angular-ui-tree-handle ui-tree-handle z-depth-1" ng-show="true"
+                 ng-init="createGroup = false; group = {}; editGroup=false">
+                <div class="ui-tree-handle-label collection" style="margin:0 auto!important">
+                    <a href="#" class="collection-item grey lighten-4" ng-hide="editGroup">
+                        <!--<a class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action" data-nodrag ng-click="remove(this);">-->
+                        <!--<span class="fa fa-times"></span>-->
+                        <!--</a>-->
+                        {{children.displayName}} ({{children.name}})
+                        <span class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action badge" style="right:60px;" data-nodrag
+                              ng-click="Remove(children)" ng-show="currentUser._id == '0'">
+                            <i class="material-icons" style="color:red;">close</i>
+                        </span>
+                        <span class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action badge" data-nodrag
+                              ng-click="editGroup =! editGroup; eGroup.displayName=children.displayName;
+                               eGroup.name=children.name;eGroup.id=children._id" style="right:30px;">
+                            <i class="material-icons" style="color:blue;">mode_edit</i>
+                        </span>
+                        <span class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action badge" style="right:0;" data-nodrag
+                              ng-click="createGroup = !createGroup; group = {}">
+                            <i class="material-icons">add</i>
+                        </span>
+                    </a>
+
+                    <form class="form-inline col s12" ng-show="editGroup" name="editForm">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input type="text" required ng-model="eGroup.displayName">
+                                <label class="active" for="eGroup.displayName">Display Name</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input type="text" required ng-minlength='3'
+                                       ng-pattern='/^[a-zA-Z0-9_\ ]+$/' ng-model="eGroup.name">
+                                <label class="active" for="eGroup.name">Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn waves-effect blue waves-light"
+                                    ng-click="editGroup = EditGroup(eGroup)"
+                                    ng-disabled="editForm.$invalid">
+                                Save
+                            </button>
+                            <button type="submit" class="btn waves-effect red waves-light"
+                                    ng-click="editGroup = !editGroup">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <ul class="angular-ui-tree-nodes collection" ng-show="createGroup" data-nodrag>
+                <li class="angular-ui-tree-node collection-item">
+                    <div class="group-title angular-ui-tree-handle ui-tree-handle">
+                        <div class="ui-tree-handle-label row">
+                            <form class="form-inline col s12" novalidate name="groupForm">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <input type="text" required ng-model="group.displayName">
+                                        <label for="group.displayName">Display Name</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input type="text" required ng-model="group.name" ng-minlength='3' ng-pattern='/^[a-zA-Z0-9_]+$/'>
+                                        <label for="group.name">Name</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button type="submit" class="waves-effect blue btn center-align"
+                                            ng-disabled="groupForm.$invalid"
+                                            ng-click="createGroup = CreateGroup(group, children)">
+                                        Save
+                                    </button>
+                                    <button type="submit" class="waves-effect red btn center-align"
+                                            ng-click="createGroup = !createGroup">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul ui-tree-nodes="" ng-model="children.children">
+                <li ng-repeat="children in children.children" ui-tree-node ng-include="'nodes_renderer.html'">
+                </li>
+            </ul>
+        </script>
+
+        <div ui-tree="treeOptions" id="group_tree_view">
+            <ul ui-tree-nodes="" ng-model="groupTree" id="tree-root">
+                <li ng-repeat="children in groupTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            </ul>
+        </div>
+    </div>
+</div>

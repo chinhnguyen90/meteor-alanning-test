@@ -1,0 +1,86 @@
+<!-- <ul id="slide-out" class="col side-nav fixed leftside-navigation ps-container ps-active-y no-padding"> -->
+    <li class="user-details" ng-class="template.components.leftProfile" style="height: 64px; margin-bottom: 0px; padding-left: 0px;">
+        <!-- <div class="row">
+            <div class="col col s3 m3 l3 no-padding">
+                <img src="images/default.png" alt="" class="circle responsive-img valign profile-image">
+            </div>
+            <div class="col col s9 m9 l9 no-padding">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
+                   data-activates="profile-dropdown">
+                    {{user.emails[0].address}}<i class="mdi-navigation-arrow-drop-down right"
+                                                 style="margin-top: -42px; margin-right: -6px;"></i>
+                </a>
+                <ul id="profile-dropdown" class="dropdown-content"
+                    style="width: 128px; right: 10px !important; top: 56px !important; left: auto !important;">
+                    <li><a class="waves-effect waves-light btn-flat"><i class="material-icons left">account_circle</i>{{'sys.tabNames.profiles' | translate}}</a></li>
+                    <li class="grey lighten-5" ng-repeat="profile in user.profile.permissions"><a class="waves-effect waves-light btn-flat sub-user" ng-click="ChangeProfile(profile)">{{profile.profile.profileName}}</a></li>
+                    <li><a class="waves-effect waves-light btn-flat" href="#"><i class="material-icons left small">settings</i>{{'sys.button.language' | translate}}</a></li>
+                    <li class="grey lighten-5"><a class="waves-effect waves-light btn-flat sub-user" ng-click="ChangeLanguage('en')">{{'sys.button.en' | translate}}</a></li>
+                    <li class="grey lighten-5"><a class="waves-effect waves-light btn-flat sub-user" ng-click="ChangeLanguage('vi')">{{'sys.button.vi' | translate}}</a></li>
+                    <li><a class="waves-effect waves-light btn-flat" href="#" ng-click="Logout()"><i class="material-icons left small">input</i>{{'sys.button.logout' | translate}}</a></li>
+                </ul>
+                <p class="user-roal" style="margin-bottom: 0px;">{{currentProfile.group.displayName}}</p>
+                <p class="user-roal"><small>{{currentProfile.profile.profileName}}</small></p>
+            </div>
+        </div> -->
+        <md-list style="padding-top: 0;">
+            <md-list-item class="md-3-line" style="height:auto;">
+                <img ng-src="images/default.png" class="md-avatar" alt="{{user.emails[0].address}}" />
+                <div class="md-list-item-text" style="padding:0;margin:0;">
+                    <div>
+                        <md-menu>
+                          <a ng-click="$mdOpenMenu($event)" class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn">
+                            {{user.emails[0].address || user.username}}<i class="material-icons right" style="margin: 0 auto;">arrow_drop_down</i>
+                          </a>
+                          <md-menu-content width="2" style="padding: 0;" md-dynamic-height>
+                                <ul style="margin:0!important;">
+                                    <li><a class="waves-effect waves-light btn-flat btn-drop-user"><i class="material-icons left">account_circle</i>{{'sys.tabNames.profiles' | translate}}</a></li>
+                                    <li class="grey lighten-5" ng-repeat="profile in user.profile.permissions">
+                                        <md-button ng-click="ChangeProfile(profile)" style="padding:0 5px 0 2em;margin:0;width: 100%;text-align: left;text-transform:none;">
+                                            {{profile.group.displayName}}
+                                            <small style="font-size:13px;">({{profile.profile.profileName}})</small>
+                                        </md-button>
+                                    </li>
+                                    <li><a class="waves-effect waves-light btn-flat btn-drop-user" href="#"><i class="material-icons left small">settings</i>{{'sys.button.language' | translate}}</a></li>
+                                    <li class="grey lighten-5">
+                                        <md-button ng-click="ChangeLanguage('en')" style="padding:0 5px 0 2em;margin:0;width: 100%;text-align: left;text-transform:none;">
+                                            {{'sys.button.en' | translate}}
+                                        </md-button>
+                                    </li>
+                                    <li class="grey lighten-5">
+                                        <md-button ng-click="ChangeLanguage('vi')" style="padding:0 5px 0 2em;margin:0;width: 100%;text-align: left;text-transform:none;">
+                                            {{'sys.button.vi' | translate}}
+                                        </md-button>
+                                    </li>
+                                    <li><a class="waves-effect waves-light btn-flat btn-drop-user" href="#" ng-click="ChangePassword()"><i class="material-icons left small">vpn_key</i>{{'sys.form.users.changePassword' | translate}}</a></li>
+                                    <li><a class="waves-effect waves-light btn-flat btn-drop-user" href="#" ng-click="Logout()"><i class="material-icons left small">input</i>{{'sys.button.logout' | translate}}</a></li>
+                                </ul>
+                          </md-menu-content>
+                        </md-menu>
+                    </div>
+                    <!--<p class="user-roal">{{currentProfile.group.displayName}}</p>-->
+                    <p style="font-size:12px;color:white;margin-right:10px;">{{currentProfile.profile.profileName}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </li>
+    <li ng-style="{height: heightScreen - 130 + 'px', 'overflow-y': 'auto'}">
+        <script type="text/ng-template" id="render_menu">
+            <a class="collapsible-header waves-effect waves-cyan" ng-click='Tab.CreateTab("sys.tabNames."+node.name, node.state);node.expand=!node.expand'>
+                <span style="cursor: pointer;">
+                    <i class="material-icons tiny">{{node.icon}}</i>
+                </span>
+                {{node.displayName}}
+            </a>
+            <div class="collapsible-body">
+                <ol class="collapsible collapsible-accordion">
+                    <li ng-repeat="node in node.sub" ng-include="'render_menu'">
+                    </li>
+                </ol>
+            </div>
+        </script>
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold no-padding" ng-repeat="node in navigation.nav" ng-include="'render_menu'"></li>
+        </ul>
+    </li>
+<!-- </ul> -->

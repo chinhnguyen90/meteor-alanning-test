@@ -1,0 +1,55 @@
+<!-- Desktop -->
+<div class="navbar-fixed z-depth-1 valign-wrapper hide-on-med-and-down" ng-show="!$root.currentUser">
+    <nav>
+        <div class="row blue lighten-1 center-align"
+             style="height: 64px;">
+            <div class="col s2 valign-wrapper">
+                <img class="center-align"
+                     src="{{setting.config.logo1}}"
+                     height="48"
+                     style="margin-top: 7px; max-width: 150px;">
+            </div>
+            <div class="col s8" style="text-align: center; padding-top: 5px;">
+                <h5>{{setting.config.title}}</h5>
+            </div>
+            <div class="col s2" style="padding-top: 5px; text-align: right;">
+                <h5>{{clock | date: 'HH:mm:ss'}}</h5>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Tablet -->
+<div class="navbar-fixed z-depth-1 valign-wrapper hide-on-large-only" ng-show="!$root.currentUser">
+    <nav>
+        <div class="row blue lighten-1 center-align"
+             style="height: 64px;">
+            <div class="col s12" style="text-align: center; padding-top: 5px;">
+                <h5>{{setting.config.title}}</h5>
+            </div>
+        </div>
+    </nav>
+</div>
+<div ng-style="{'height': heightScreen - 86 + 'px', 'width': widthScreen + 'px'}"
+     layout="row" layout-align="center center"
+     style="background-image: url('http://avatars.io/images/background.png')">
+    <form class="card-panel" layout="row">
+        <img ng-src="http://www.avatars.io/facebook/{{GetFacebook()}}?size=large"
+             height="156"
+             style="padding-right: 5px; padding-left:5px">
+        <div layout="column">
+            <div class="row" style="margin-bottom: 0px;">
+                <div class="input-field col s12">
+                    <input placeholder="Email / User Name" id="email" type="text" class="validate" ng-model="username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Password" id="password" type="password" class="validate" ng-model="password" ng-minlength='8'>
+                </div>
+            </div>
+            <md-button class="md-raised md-primary"
+                       ng-disabled="!username || !password"
+                       ng-click="Login(username, password)">Login</md-button>
+        </div>
+    </form>
+</div>

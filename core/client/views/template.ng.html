@@ -1,0 +1,9 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary"
+               ng-click="Tab.CreateTab('sys.form.template.create', 'templateForm')">{{'sys.button.create'| translate}}</md-button>
+</div>
+<div id="grid_template"
+     ui-grid="gridOptions"
+     class="grid"
+     ng-style="{'height': heightScreen - 112 + 'px'}"></div>

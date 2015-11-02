@@ -1,0 +1,86 @@
+<header class="no-padding" ng-show="$root.currentUser"
+        ng-include="'core/client/views/top.ng.html'" style="height: 48px;">
+</header>
+<section layout="row" ng-style="{height: heightScreen - 48 + 'px'}" ng-show="$root.currentUser">
+    <!-- <div class="navbar-fixed" ng-show="$root.currentUser"
+           ng-include="'core/client/views/left.ng.html'" style="width: 240px;"></div> -->
+   <ul id="slide-out" ng-show="$root.currentUser" ng-include="'core/client/views/left.ng.html'"
+        style="width: 260px;" ng-hide="classMode"
+        class="navbar-fixed col fixed side-nav leftside-navigation ps-container ps-active-y no-padding">
+   </ul>
+   <div layout="row" flex class="main-view" >
+       <div style="width: 260px;" ng-class="classMode? 'hide':'hide-on-med-and-down'">&nbsp;</div>
+       <div flex ui-view>Loading...</div>
+   </div>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="notification">
+        <md-card layout="row" class="card-toolbar" style="height: 48px; border-radius: 0; margin: 0;"
+                 ng-class="template.components.topMenu">
+            <h6 style="color: inherit;">Thông báo</h6>
+        </md-card>
+        <md-list layout-padding ng-style="{'height': heightScreen - 48 + 'px', 'overflow-y': 'auto'}">
+            <md-list-item class="md-3-line" ng-repeat="notification in notifications | orderBy: '-time'"
+                    style="padding: 0; position: relative;">
+                <h6 style="font-style: italic; font-size: 12px; position: absolute;">{{(notification.time|moment).format('DD/MM/YYYY HH:mm')}}</h6>
+                <div class="md-list-item-text" layout="column" style="text-align: justify; text-indent: 20px;">
+                    {{notification.comment}}
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="chat-room">
+        <md-card layout="row" class="card-toolbar" style="height: 48px; border-radius: 0; margin: 0;"
+                 ng-class="template.components.topMenu">
+            <h6 style="color: inherit;">Messengers</h6>
+        </md-card>
+        <md-list layout-padding style="height: 120px; overflow-y: auto; border-bottom: 1px solid rgba(0,0,0,0.12);">
+            <md-list-item class="md-1-line list-chat" ng-repeat="user in users | filter: FilterUser" style="padding: 0; min-height: 36px;"
+                    ng-click="CreateChatTab(user)">
+                <img src="/images/default.png" class="md-avatar" style="height: 30px; width: 30px; margin: 0 10px 0 0;" />
+                <div class="md-list-item-text" layout="column">
+                    {{user.username}}
+                </div>
+                <div flex></div>
+                <span style="font-size: 12px; color: #555555; font-style: italic;" ng-show="!user.status.online">
+                    {{(user.status.lastLogin.date|moment).fromNow(true)}}
+                </span>
+                <span style="font-size: 12px; color: #555555; font-style: italic;" ng-show="user.status.idle">
+                    Idle
+                </span>
+                <i class="material-icons" style="font-size: 14px; margin-left: 5px;"
+                        ng-style="{color: user.status.online ? 'green' : 'lightgrey'}">lens</i>
+            </md-list-item>
+        </md-list>
+        <div layout="column" ng-style="{'height': heightScreen - 168 + 'px'}">
+            <md-tabs md-border-bottom md-autoselect flex class="chat-tab">
+                <md-tab label="All">
+                    <div id="chat-box-public" ng-style="{'height': heightScreen - 262 + 'px', 'overflow-y': 'auto'}" style="padding: 0 10px;">
+                        <p ng-repeat="ch in chats | filter: {type: 'public'}">
+                            <span ng-style="{color: $root.currentUser._id == ch.fromId ? 'green' : 'red'}">{{ch.from}}</span>: {{ch.comment}}
+                        </p>
+                    </div>
+                    <textarea rows="3" type="text" placeholder="Type something here"
+                              ng-model="chat[-1].comment" ng-keypress="($event.keyCode == 13) ? Send(chat[-1], 'public') : null"></textarea>
+                </md-tab>
+                <md-tab ng-repeat="chatTab in chatTabs track by $index">
+                    <md-tab-label>
+                        <span>{{chatTab.username}}</span>
+                        <md-icon class="material-icons md-warn md-raised" ng-click="RemoveChatTab($index)"
+                                style="cursor: pointer; margin-top: -4px;">clear</md-icon>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div id="chat-box-private" ng-style="{'height': heightScreen - 262 + 'px', 'overflow-y': 'auto'}" style="padding: 0 10px;">
+                            <p ng-repeat="ch in chats | filter: {type: 'private'} | filter: FilterChat(chatTab)">
+                                <span ng-style="{color: chatTab._id == ch.toId ? 'green' : 'red'}">{{ch.from}}</span>: {{ch.comment}}
+                            </p>
+                        </div>
+                        <textarea rows="3" type="text" placeholder="Type something here"
+                                  ng-model="chat[$index].comment" ng-keypress="($event.keyCode == 13) ? Send(chat[$index], chatTab, $index) : null"></textarea>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+        </div>
+    </md-sidenav>
+</section>
+<div flex ng-if="!$root.currentUser" ui-view id="dialog-nav">Loading...
+</div>

@@ -1,0 +1,36 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-show="mode=='create'" ng-click="CreateUser(user)" ng-disabled="user.password == null || user.password != passwordConfirm">{{'sys.button.create'|translate}}</md-button>
+    <md-button class="md-raised md-accent" ng-show="mode=='edit'" ng-click="UpdateUser(user)" ng-disabled="user.password == null || user.password != passwordConfirm">{{'sys.button.save'|translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="RollBack()">{{'sys.button.cancel'|translate}}</md-button>
+</div>
+<div layout="row">
+    <div layout="column" layout-margin>
+        <div class="input-field col s12">
+            <input id="userName" type="text" class="validate" ng-model="user.username" ng-minlength="5" ng-disabled="mode=='edit'">
+            <label for="userName" class="active" translate>{{'sys.form.users.username'}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="firstName" type="text" class="validate" ng-model="user.profile.firstName">
+            <label for="firstName" ng-class="user.profile.firstName?'active':''" translate>{{'module.dorm.student.firstName'}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="lastName" type="text" class="validate" ng-model="user.profile.lastName">
+            <label for="lastName" ng-class="user.profile.lastName?'active':''" translate>{{'module.dorm.student.lastName'}}</label>
+        </div>
+    </div>
+    <div layout="column" layout-margin>
+        <div class="input-field col s12">
+            <input id="email" type="email" class="validate" ng-model="user.email" ng-disabled="mode=='edit'">
+            <label for="email" class="active">Email</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="password" type="password" class="validate" ng-model="user.password" ng-minlength="8">
+            <label for="password" translate>{{'sys.form.users.password'}}</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="password-confirm" type="password" class="validate" ng-model="passwordConfirm" ng-minlength="8">
+            <label for="password-confirm" translate>{{'sys.form.users.confirm'}}</label>
+        </div>
+    </div>
+</div>

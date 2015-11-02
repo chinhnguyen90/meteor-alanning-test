@@ -1,0 +1,19 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-show="mode=='create'" ng-click="CreatePermission(profile)"
+            ng-disabled="!profile.profileName">{{'sys.button.create' | translate}}</md-button>
+    <md-button class="md-raised md-accent" ng-show="mode=='edit'"
+               ng-click="UpdatePermission(profile)">{{'sys.button.save' | translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="RollBack()" >{{'sys.button.cancel' | translate}}</md-button>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">label</i>
+        <input id="profileName" type="text" class="validate" ng-pattern='/^[a-zA-Z0-9_]+$/' ng-model="profile.profileName">
+        <label for="profileName" ng-class="profile.profileName? 'active': ''">Profile Name</label>
+    </div>
+    <p ng-repeat="role in listCheck">
+        <input type="checkbox" id="{{role._id}}" ng-click="Check(role._id)" ng-checked="isChecked(role._id)"/>
+        <label for="{{role._id}}">{{role.name}}</label>
+    </p>
+</div>

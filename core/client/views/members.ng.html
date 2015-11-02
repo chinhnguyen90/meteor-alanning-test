@@ -1,0 +1,11 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-click="Create()">{{'sys.button.create' | translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="DeleteSelected()"
+               ng-disabled="!allowRemove">{{'sys.button.delete' | translate}}</md-button>
+</div>
+<div id="grid"
+     ui-grid="gridOptions"
+     class="grid"
+     ng-style="{'height': heightScreen - 112 + 'px'}"
+     ui-grid-selection></div>

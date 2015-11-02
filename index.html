@@ -1,0 +1,11 @@
+<head>
+	<title>{{setting.config.title}}</title>
+    <link rel="shortcut icon" type="image/png" href="{{setting.config.favicon}}">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body style="overflow: hidden !important;font-family: inherit;">
+	<div ng-include="'core/client/views/index.ng.html'" ng-controller="MainCtrl" layout="column"></div>
+    {{> sAlert}}
+</body>

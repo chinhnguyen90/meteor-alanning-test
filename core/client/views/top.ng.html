@@ -1,0 +1,46 @@
+<!-- Desktop -->
+<div class="hide-on-med-and-down" layout="row">
+    <div class="center content" style="height: 48px; width: 260px;"
+                ng-style="{'width': classMode?160:260}">
+        <!-- <a href="#" data-activates="slide-out" class="black-text button-collapse">
+            <img style="margin-top: 5px; max-width: 150px;"
+                 src="{{setting.config.logo2}}"
+                 height="40" class="mdi-navigation-menu">
+        </a> -->
+        <a href="#" class="black-text">
+            <img style="margin-top: 5px; max-width: 150px;"
+                 src="{{setting.config.logo2}}"
+                 height="40">
+        </a>
+    </div>
+    <div layout="row" flex>
+        <div flex ng-class="template.components.topMenu" style="margin: 0 auto;" class="topMenu"  ng-show="tabMode">
+            <md-tabs md-align-tabs="bottom" md-autoselect>
+                <md-tab ng-repeat="tab in Tab.tabs track by $index" md-on-select="Tab.SelectTab(tab)" md-on-deselect="Tab.DeselectTab(tab)" md-active="Tab.currentTabId == tab.id">
+                    <md-tab-label ng-show="$root.currentUser">
+                        <div style="height:48px;">
+                            <span class="white-text" id="{{tab.id}}" translate="{{tab.title}}" translate-value-valuename="{{tab.valuename}}"></span>
+                            <md-icon class="material-icons md-warn md-raised" ng-click="Tab.RemoveTab(tab)" style="cursor: pointer;margin-left: 5px;font-size: 21px;">clear</md-icon>
+                        </div>
+                    </md-tab-label>
+                </md-tab>
+            </md-tabs>
+        </div>
+        <div flex ncy-breadcrumb ng-class="template.components.topMenu" ng-show="!tabMode"></div>
+    </div>
+</div>
+<!-- Tablet -->
+<div class="hide-on-large-only" ng-class="template.components.topMenu" ng-show="$root.currentUser" style="height: 48px;">
+    <div layout="row">
+        <div flex="5">
+            <a href="#" data-activates="slide-out" class="button-collapse btn-floating waves-effect waves-light blue lighten-1"
+                    style="top: 5px;">
+                <i class="mdi-navigation-menu"></i>
+            </a>
+        </div>
+        <div flex class="center">
+            <a href="/" class="brand-logo" ng-show="tabMode"><img style="margin-top: 2px;" src="{{setting.config.logo2}}" height="40"></a>
+            <div flex ncy-breadcrumb ng-class="template.components.topMenu" ng-show="!tabMode"></div>
+        </div>
+    </div>
+</div>

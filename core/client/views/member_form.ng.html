@@ -1,0 +1,26 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-click="Create(member)"
+               ng-disabled="!member.group || !member.user">{{'sys.button.create' | translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="RollBack()">{{'sys.button.cancel' | translate}}</md-button>
+</div>
+<div layout-padding ng-style="{'height': heightScreen - 112 + 'px'}" layout="row">
+    <div flex>
+        <label>Group Select</label>
+        <select class="browser-default"
+                style="width: 300px;"
+                ng-model="member.group">
+            <option value="" disabled selected>Choose group</option>
+            <option ng-repeat="group in groups" value="{{group}}">{{group.displayName}}</option>
+        </select>
+    </div>
+    <div flex>
+        <label>User Select</label>
+        <select class="browser-default"
+                style="width: 300px;"
+                ng-model="member.user">
+            <option value="" disabled selected>Choose user</option>
+            <option ng-repeat="user in users" value="{{user}}">{{user.username}}</option>
+        </select>
+    </div>
+</div>

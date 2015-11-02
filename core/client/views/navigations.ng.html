@@ -1,0 +1,7 @@
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-click="CreateNav()">{{'sys.button.create' | translate}}</md-button>
+</div>
+<div id="gridUser" ui-grid="gridOptionNav" class="grid"
+     ui-grid-save-state
+     ng-style="{'height': heightScreen - 112 + 'px'}"></div>

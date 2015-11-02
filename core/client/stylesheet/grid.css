@@ -1,0 +1,120 @@
+.ui-grid {
+    border: 0px
+}
+
+.scrollFiller {
+    border: 0px;
+}
+
+/*HEADER*/
+.ui-grid-header-cell {
+    border-right: 0px;
+}
+
+.ui-grid-header-viewport {
+    background-color: #f3f3f3;
+    border-bottom: 2px solid #0072c6;
+}
+
+.ui-grid-top-panel .ui-grid-header-viewport .ui-grid-header-cell div.ui-grid-cell-contents {
+    font-weight: 200;
+}
+
+.ui-grid-top-panel {
+    font-family: Lato, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
+    border-right: 0px;
+}
+
+.ui-grid-row-header-cell {
+    height: 31px;
+}
+.ui-grid-column-menu-button:focus{
+    outline:0;
+}
+/*GRID*/
+
+.ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child {
+    border-right: 0px;
+    border-bottom: 0px;
+}
+
+.ui-grid-row:last-child .ui-grid-cell {
+    border: 0px;
+}
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: #fdfdfd;
+}
+
+.ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
+    background-color: #fdfdfd;
+}
+
+.ui-grid-cell {
+    border-right: 0px;
+}
+.ui-grid-cell-contents:focus{
+    outline:0;
+}
+.ui-grid-cell-contents i:focus{
+    outline:0;
+}
+
+/*FILTER*/
+input[type="text"].ui-grid-filter-input {
+    color: red;
+    border: 0px;
+    font-weight: normal;
+    margin-top: -5px;
+}
+
+input[type="text"].ui-grid-filter-input:hover {
+    border: 0px;
+}
+
+.ui-grid-filter-input::-webkit-input-placeholder {
+    color: pink;
+    font-weight: lighter;
+}
+
+.ui-grid-filter-input::-webkit-input-placeholder:before {
+    font-weight: lighter;
+    font-size: 17px;
+    font-family: "Material Icons";
+    content: "\E8B6"
+}
+
+.ui-grid-filter-container {
+    padding-left: 4px;
+}
+
+/*ICON*/
+.ui-grid-icon-minus-squared:before {
+    font-family: "Material Icons";
+    content: '\e5ce';
+    font-size: 27px;
+}
+
+.ui-grid-icon-plus-squared:before {
+    font-family: "Material Icons";
+    content: '\e5cf';
+    font-size: 27px;
+}
+
+i:hover {
+    border: 0px;
+}
+
+/* FILTER */
+.grid .ui-grid-filter-container input{
+    height: 2em;
+}
+select.ui-grid-filter-select{
+    display: block;
+    height: 2rem;
+}

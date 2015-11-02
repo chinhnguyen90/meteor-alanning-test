@@ -1,0 +1,121 @@
+<style>
+    .input-field{
+        margin:0 auto;
+    }
+    .input-field input{
+        margin-bottom:5px;
+        width:100%;
+    }
+    .input-field .prefix{
+        top:12px;
+    }
+
+    md-dialog md-input-container input{
+        border-bottom:none!important;
+    }
+    md-dialog md-input-container input:focus{
+        border-bottom:none!important;
+        box-shadow: none!important;
+    }
+    md-dialog md-input-container.md-input-focused input:focus{
+        border-bottom:none!important;
+    }
+    md-dialog md-input-container.md-input-focused md-icon{
+        color:white!important;
+    }
+</style>
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-show="mode=='create'" ng-click="CreateNav(navigate)"
+               ng-disabled="!navigate.name">{{'sys.button.create' | translate}}</md-button>
+    <md-button class="md-raised md-accent" ng-show="mode=='edit'"
+               ng-click="UpdateNav(navigate)">{{'sys.button.save' | translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="RollBack()" >{{'sys.button.cancel' | translate}}</md-button>
+</div>
+<script type="text/ng-template" id="renderTree">
+    <div class="group-title angular-ui-tree-handle ui-tree-handle z-depth-1"
+         ng-init="group = {}; editGroup=false">
+        <div class="ui-tree-handle-label collection" style="margin:0 auto!important">
+            <a href="#" class="collection-item grey lighten-4" ng-hide="editGroup">
+                <md-icon class="material-icons" data-nodrag style="margin-right:5px;">{{item.icon}}</md-icon>
+					{{item.displayName}} ({{item.name}})
+                <span class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action" data-nodrag
+                      ng-click="editGroup =! editGroup; eGroup.displayName=item.displayName; eGroup.icon=item.icon;
+                       eGroup.name=item.name" style="right:30px;">
+                    <i class="material-icons" style="color:blue;">mode_edit</i>
+                </span>
+                <span class="pull-right angular-ui-tree-icon angular-ui-tree-icon-action" style="right:0;" data-nodrag
+                      ng-click="Remove(this)">
+                    <i class="material-icons" style="color:red;">close</i>
+                </span>
+            </a>
+
+            <form class="form-inline col s12" ng-show="editGroup" name="editForm">
+                <div class="row" style="margin-bottom:0;">
+                    <md-button class="col s1 md-icon-button" aria-label="" ng-click="IconTable($event)">
+                        <md-icon class="material-icons" data-nodrag>{{eGroup.icon}}</md-icon>
+                        <md-tooltip>Icon</md-tooltip>
+                    </md-button>
+                    <div class="input-field col s4">
+                        <input type="text" required ng-minlength='3' placeholder="Tên Hiển Thị"
+                               ng-model="eGroup.displayName">
+                    </div>
+                    <a type="submit" class="btn-flat waves-effect waves-teal col s2"
+                            ng-click="editGroup = !editGroup; item.displayName=eGroup.displayName; item.icon=eGroup.icon" style="margin-top:10px;" data-nodrag>
+                        Save
+                    </a>
+                    <a type="submit" class="btn-flat waves-effect waves-red col s2"
+                            ng-click="editGroup = !editGroup" style="margin-top:10px;" data-nodrag>
+                        Close
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ul ui-tree-nodes="" ng-model="item.sub">
+        <li ng-repeat="item in item.sub track by $index" ui-tree-node ng-include="'renderTree'">
+        </li>
+    </ul>
+</script>
+
+<div class="row mCustomScrollbar" ng-style="{'height': heightScreen - 112 + 'px', 'overflow': 'auto'}" data-mcs-theme="dark-thick">
+  <div class="col s6">
+  	<div class="row">
+	    <div class="input-field col s6">
+	        <i class="material-icons prefix">label</i>
+	        <input placeholder="Name" type="text" class="validate" ng-model="navigate.name" ng-minlength="3">
+	    </div>
+	    <a class="waves-effect waves-teal btn-flat col s3 center" ng-click="CreateNode()" style="margin-top: 12px;">Create menu</a>
+  	</div>
+    <div layout="row">
+        <p flex="30">Select default Tab</p>
+        <div flex="70">
+            <md-input-container>
+                <md-select ng-model="selectDefaultTab" aria-label="selectDefaultTab">
+                  <md-option aria-label="" ng-repeat="nav in defaultNav.nav" value="{{nav.state}}">{{nav.displayName}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+    <div ui-tree id="tree1-root">
+        <ul ui-tree-nodes="" ng-model="navigate.nav">
+            <li ng-repeat="item in navigate.nav track by $index" ui-tree-node ng-include="'renderTree'"></li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="col s6">
+    <h5>{{defaultNav.name}}</h5>
+    <div ui-tree id="tree2-root" data-nodrop-enabled="true" data-clone-enabled="true">
+      <ol ui-tree-nodes="" ng-model="defaultNav.nav">
+        <li ng-repeat="node in defaultNav.nav" ui-tree-node  style="cursor:move">
+			<div class="tree-node collection"  style="margin:0 auto!important">
+				<div class="tree-node-content collection-item grey lighten-4">
+					{{node.displayName}}
+				</div>
+			</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

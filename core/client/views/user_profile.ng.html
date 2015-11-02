@@ -1,0 +1,56 @@
+<style>
+    [type="checkbox"] + label{
+        padding-left: 25px;
+    }
+</style>
+<div layout="row" class="card-toolbar" ng-class="template.components.toolbarView">
+    <div flex></div>
+    <md-button class="md-raised md-primary" ng-disabled="!profile || !nav || !group"
+               ng-click="CreatePer(user, profile, nav, group)">{{'sys.button.create' | translate}}</md-button>
+    <md-button class="md-raised md-warn" ng-click="RollBack()">{{'sys.button.cancel' | translate}}</md-button>
+</div>
+<div class="row">
+    <div class="col s12">
+        <md-input-container style="width: 300px;">
+            <label>Choose Profile</label>
+            <md-select ng-model="profile">
+                <md-option ng-repeat="profile in profiles" value="{{profile}}">{{profile.profileName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container style="width: 300px;">
+            <label>Choose Navigations</label>
+            <md-select ng-model="nav">
+                <md-option ng-repeat="nav in navigations" value="{{nav}}" ng-if="nav._id!=='0'">{{nav.name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container style="width: 300px;">
+            <label>Choose Groups</label>
+            <md-select ng-model="group">
+                <md-option ng-repeat="group in groups" value="{{group}}">{{group.displayName}}</md-option>
+            </md-select>
+        </md-input-container>
+        <!--<script type="text/ng-template" id="nodes_renderer.html">
+            <div ui-tree-handle class="tree-node tree-node-content" ng-style="!node.children.length? {'margin-left':'18px'}:''">
+                <span style="cursor: pointer" ng-click="node.expand=!node.expand" ng-show="node.children.length">
+                    <i class="material-icons tiny" ng-show="!node.expand">add</i>
+                    <i class="material-icons tiny" ng-show="node.expand">clear</i>
+                </span>
+                <input type="checkbox" id="{{node.name}}" ng-click="Check(node._id)" ng-checked="isChecked(node._id)"/>
+                <label for="{{node.name}}">{{node.displayName}}</label>
+            </div>
+            <ol ui-tree-nodes="" ng-model="node.nodes" ng-show="node.expand">
+                <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+                </li>
+            </ol>
+        </script>
+        <div class="row">
+            <div class="col s6">
+                <div ui-tree id="tree-root">
+                    <ol ui-tree-nodes ng-model="data">
+                        <li ng-repeat="node in groupTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
